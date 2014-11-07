@@ -26,9 +26,17 @@
     "karma-cli": "0.0.4"
   },
   "dependencies": {
-    "brfs": "~1.2.0"
+    "browserify": "~6.2.0",
+    "browserify-shim": "~3.8.0",
+    "partialify": "~3.1.1"
   },
   "browserify": {
-    "transform": ["brfs"]
+    "transform": [
+      "partialify",
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "angular": "global:angular"
   }
 }
