@@ -11,34 +11,40 @@ describe('loading', function () {
     require('angular-route');
     require('angular-ui-router');
 
-    var destination, $rootScope;
-
     it('syncs load state for ui.router', function () {
-      destination = {};
       angular.mock.module('ui.router');
-      angular.mock.inject(function (syncLoaded, _$rootScope_) {
+      angular.mock.inject(function (syncLoaded, $rootScope) {
+        var destination = {};
         syncLoaded(destination);
-        $rootScope = _$rootScope_;
+        expect(destination.loaded).to.be.false;
+        $rootScope.$broadcast('$stateChangeStart');
+        expect(destination.loaded).to.be.false;
+        $rootScope.$broadcast('$stateChangeSuccess');
+        expect(destination.loaded).to.be.true;
       });
-      expect(destination.loaded).to.be.false;
-      $rootScope.$broadcast('$stateChangeStart');
-      expect(destination.loaded).to.be.false;
-      $rootScope.$broadcast('$stateChangeSuccess');
-      expect(destination.loaded).to.be.true;
     });
 
     it('syncs load state for ngRoute', function () {
-      destination = {};
       angular.mock.module('ngRoute');
-      angular.mock.inject(function (syncLoaded, _$rootScope_) {
+      angular.mock.inject(function (syncLoaded, $rootScope) {
+        var destination = {};
         syncLoaded(destination);
-        $rootScope = _$rootScope_;
+        expect(destination.loaded).to.be.false;
+        $rootScope.$broadcast('$routeChangeStart');
+        expect(destination.loaded).to.be.false;
+        $rootScope.$broadcast('$routeChangeSuccess');
+        expect(destination.loaded).to.be.true;
       });
-      expect(destination.loaded).to.be.false;
-      $rootScope.$broadcast('$routeChangeStart');
-      expect(destination.loaded).to.be.false;
-      $rootScope.$broadcast('$routeChangeSuccess');
-      expect(destination.loaded).to.be.true;
+    });
+
+    it('is a noop with no router', function () {
+      angular.mock.inject(function (syncLoaded, $rootScope) {
+        var destination = {}
+        syncLoaded(destination);
+        $rootScope.$broadcast('$routeChangeSuccess');
+        $rootScope.$broadcast('$stateChangeSuccess');
+        expect(destination.loaded).to.be.undefined;
+      });
     });
 
   });
