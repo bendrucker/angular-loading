@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- '0.10'
+deploy:
+  provider: npm
+  email: bvdrucker@gmail.com
+  api_key:
+    secure: TaP13rAHuzhYdRPtSfhF7/xjkBWbgC9MxKd0ySD/e1aRNpiR0HZJnfEfOQZ8fByZd4rcA2ayl4c4J3WR3cSvn4S2vdpXGa0BDnoxmMOeHVCnN49dpDe31i8ZphGFMrfzQkf/3T3notBp0UHsj4bL7bKDS3X/sgc8vK78pMvjKNc=
+  on:
+    tags: true
+    all_branches: true
+    repo: bendrucker/angular-loading
