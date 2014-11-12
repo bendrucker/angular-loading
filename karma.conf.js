@@ -13,7 +13,12 @@ module.exports = function (config) {
     },
     browserify: {
       debug: true,
-      transform: ['partialify', 'browserify-istanbul', 'browserify-shim']
+      transform: [
+      'partialify',
+      ['browserify-istanbul', {
+        ignore: '**/*.html'
+      }],
+      'browserify-shim']
     },
     reporters: ['progress', 'coverage'],
     browsers: ['PhantomJS'],
