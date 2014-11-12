@@ -6,6 +6,7 @@ module.exports = function ($injector, $rootScope) {
     var ngRoute  = $injector.has('$route');
     if (!uiRouter && !ngRoute) return;
     var prefix = uiRouter ? '$state' : '$route';
+    destination.loaded = false;
     $rootScope.$on(prefix + 'ChangeStart', function () {
       destination.loaded = false;
     });
