@@ -49,4 +49,32 @@ describe('loading', function () {
 
   });
 
+  describe('directive', function () {
+
+    var element, scope, deferred;
+    beforeEach(angular.mock.inject(function ($injector) {
+      scope         = $injector.get('$rootScope').$new();
+      deferred      = $injector.get('$q').defer();
+      scope.promise = deferred.promise;
+      element       = $injector.get('$compile')('<div loading="promise">Loaded</div>')(scope);
+      scope.$digest();
+    }));
+
+    it('displays a loading indicator when the promise is pending', function () {
+      expect(element.text()).to.not.contain('Loaded');
+      expect(element.children()).to.have.length(1);
+      var indicator = angular.element(element.children()[0]);
+      expect(indicator.hasClass('loading-indicator-content'))
+        .to.be.true;
+    });
+
+    it('displays the content when the promise resolves', function () {
+      deferred.resolve();
+      scope.$digest();
+      expect(element.text()).to.contain('Loaded');
+      expect(element.children()).to.have.length(1);
+    });
+
+  });
+
 });
