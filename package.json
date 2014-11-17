@@ -28,7 +28,7 @@
     "browserify-istanbul": "~0.1.2",
     "chai": "~1.10.0",
     "karma": "~0.12.24",
-    "karma-bro": "~0.10.0",
+    "karma-browserify": "^1.0.0",
     "karma-chai": "~0.1.0",
     "karma-cli": "0.0.4",
     "karma-coverage": "~0.2.6",
